@@ -1,0 +1,57 @@
+version: '2'
+services:
+    elasticsearch:
+        image: elasticsearch
+        #command: elasticsearch -Des.network.host=_non_loopback_ -Des.cluster.name: elk-cluster
+        ports:
+            - 9200:9200
+            - 9300:9300
+        environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+        networks:
+            - docker_elk
+        #volumes:
+        #    - /path/to/storage:/usr/share/elasticsearch/data
+    logstash:
+        depends_on:
+            - elasticsearch
+        build: Dockerfiles/logstash/
+        container_name: cclogstash
+        ports:
+            - 5140:5140
+        networks:
+            - docker_elk
+    kibana:
+        image: kibana
+        ports:
+            - 5601:5601
+        environment:
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
+        networks:
+            - docker_elk
+        depends_on:
+            - elasticsearch
+    logcreator:
+        depends_on:
+            - logstash
+        # this image should exist in the local Repostory
+        # build with 'mvn clean package docker:build' in logcreator Directory  
+        image: codecentric/logcreator
+        ports:
+            - 8080:8080
+        logging:
+            driver: syslog
+            # Networking seems not to work here, So we use localhost
+            options: 
+                syslog-address: "tcp://localhost:5140"
+                syslog-format: "rfc3164"
+        networks:
+            - docker_elk
+    
+networks:
+    docker_elk:
+        driver: bridge        
+
+
+    
+        
