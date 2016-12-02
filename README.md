@@ -1,7 +1,7 @@
 # logcreator
 ## Prelert Demo Environment
 
-Dieses Projekt liefert eine in Docker ablaufende ELK-Umgebung.
+Dieses Projekt liefert eine in Docker ablaufende ELK-Umgebung in die permanent Anwendungslogs einlaufen.
 
 > cd logceator
 
