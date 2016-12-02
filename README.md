@@ -11,5 +11,6 @@ Dieses Projekt liefert eine in Docker ablaufende ELK-Umgebung.
 
 > docker-compose up
 
-
+Kibana 
+http://localhost:5601
 
