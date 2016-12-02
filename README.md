@@ -9,7 +9,7 @@ Dieses Projekt liefert eine in Docker ablaufende ELK-Umgebung.
 
 > cd ..
 
-> docker-compuse up
+> docker-compose up
 
 
 
