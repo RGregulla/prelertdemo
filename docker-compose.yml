@@ -4,8 +4,8 @@ services:
         image: elasticsearch
         #command: elasticsearch -Des.network.host=_non_loopback_ -Des.cluster.name: elk-cluster
         ports:
-            - 9200:9200
-            - 9300:9300
+            - 9201:9200
+            - 9301:9300
         environment:
             ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         networks:
@@ -24,7 +24,7 @@ services:
     kibana:
         image: kibana
         ports:
-            - 5601:5601
+            - 5602:5601
         environment:
             - ELASTICSEARCH_URL=http://elasticsearch:9200
         networks:
@@ -38,7 +38,7 @@ services:
         # build with 'mvn clean package docker:build' in logcreator Directory  
         image: codecentric/logcreator
         ports:
-            - 8080:8080
+            - 8088:8080
         logging:
             driver: syslog
             # Networking seems not to work here, So we use localhost
