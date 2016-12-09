@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -24,7 +25,9 @@ public class NormalAccessLogProducer {
     public void doAccessLog() {
 
         // 192.168.125.1 - - [21/Aug/2013:23:53:28 +0200] "GET /wps/PA_Blurb_1/jsp/oob/css/v8001/welcomePage.css HTTP/1.1" 200 80
-        DateFormat df = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss Z");
+        // 192.168.10.2 - - [05/Dez/2016:05:17:28 +0100] "GET /shop/search HTTP/1.1" 200 315
+        DateFormat df = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss Z", Locale.ENGLISH);
+
         String accesslog = ipaddr[new Random().nextInt(9)] + " - - [" + df.format(new Date()) + "] \"GET " + requests[new Random().nextInt(5)]+ " HTTP/1.1\" 200 " + new Random().nextInt(1000);
         log.info(accesslog);
     }
